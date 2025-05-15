@@ -3,6 +3,8 @@ import { AccountService } from '../_services/account.service';
 import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
 import { Observable } from 'rxjs';
 import { User } from '../_models/user';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-nav',
@@ -11,7 +13,9 @@ import { User } from '../_models/user';
 })
 export class NavComponent implements OnInit {
   model: any = {};
-  accountSrv = inject(AccountService);
+  private accountSrv = inject(AccountService);
+  private router = inject(Router);
+  private toastr = inject(ToastrService);
   currentUser$: Observable<User>;
 
   ngOnInit(): void {
@@ -21,16 +25,17 @@ export class NavComponent implements OnInit {
   login() {
     this.accountSrv.login(this.model).subscribe({
       next: response => {
-        console.log(response);
+        this.router.navigateByUrl('/members')
       },
       error: error => {
-        console.log(error);
+        this.toastr.error(error.error);
       }
     });
   }
 
   logout() {
     this.accountSrv.logout();
+    this.router.navigateByUrl('/');
   }
 
 }

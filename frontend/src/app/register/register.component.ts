@@ -1,5 +1,6 @@
 import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { AccountService } from '../_services/account.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -9,6 +10,7 @@ import { AccountService } from '../_services/account.service';
 export class RegisterComponent {
   @Output() cancelRequest = new EventEmitter();
   private accountSrv = inject(AccountService);
+  private toastr = inject(ToastrService);
   model: any = {};
 
   register() {
@@ -17,7 +19,7 @@ export class RegisterComponent {
         console.log(response);
         this.cancel();
       },
-      error: error => console.log(error)
+      error: error => this.toastr.error(error.error)
     });
   }
 
