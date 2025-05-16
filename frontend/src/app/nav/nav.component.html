@@ -8,11 +8,12 @@
                 <li class="nav-item"> <a class="nav-link " routerLink="/messages" routerLinkActive="active">Messages</a> </li>
                 <li class="nav-item"> <a class="nav-link " (click)="logout()">Logout</a> </li>
             </ng-container>
+                <li class="nav-item"> <a class="nav-link " routerLink="/errors" routerLinkActive="active">Errors</a> </li>
         </ul>
 
         <div class="dropdown" *ngIf="(currentUser$ | async) as user" dropdown>
-            <a class="dropdown-toggle text-light" dropdownToggle>Welcome {{user.email | titlecase}}</a>
-            <div class="dropdown-menu mt-3" *dropdownMenu>
+            <a class="dropdown-toggle text-light text-decoration-none" dropdownToggle>Welcome {{user.email | titlecase}}</a>
+            <div class="dropdown-menu" *dropdownMenu>
                 <a class="dropdown-item">Edit Profile</a>
                 <div class="divider dropdown-divider"></div>
                 <a class="dropdown-item" (click)="logout()">Logout</a>
