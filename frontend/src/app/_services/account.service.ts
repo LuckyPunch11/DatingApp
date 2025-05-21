@@ -1,16 +1,18 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { map, ReplaySubject } from 'rxjs';
 import { User } from '../_models/user';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
-  baseUrl = 'https://localhost:5001/api';
+  baseUrl = environment.apiUrl;
   http = inject(HttpClient);
   private currentUserSource = new ReplaySubject<User>(1);
   currentUser$ = this.currentUserSource.asObservable();
+  currentUser = signal<User | null>(null);
 
   login(model: any) {
     return this.http.post(`${this.baseUrl}/account/login`, model).pipe(
@@ -40,9 +42,11 @@ export class AccountService {
   logout() {
     localStorage.removeItem("user");
     this.currentUserSource.next(null);
+    this.currentUser.set(null);
   }
 
   setCurrentUser(user: User) {
     this.currentUserSource.next(user);
+    this.currentUser.set(user);
   }
 }

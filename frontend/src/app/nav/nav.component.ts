@@ -15,7 +15,6 @@ export class NavComponent implements OnInit {
   model: any = {};
   private accountSrv = inject(AccountService);
   private router = inject(Router);
-  private toastr = inject(ToastrService);
   currentUser$: Observable<User>;
 
   ngOnInit(): void {

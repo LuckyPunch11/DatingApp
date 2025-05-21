@@ -1,1 +1,63 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* # Tabset style START */
+.tab-panel {
+    border: 1px solid #000000;
+    padding: 10px;
+    border-radius: 2px;
+}
+
+.nav-tabs>li.open,
+.member-tabset>.nav-tabs>li:hover {
+    border-bottom: 5px solid #db307c;
+}
+
+.member-tabset>.nav-tabs>li.open>a,
+.member-tabset>.nav-tabs>li:hover>a {
+    border: 0;
+    background: none !important;
+    color: #333333;
+}
+
+.member-tabset>.nav-tabs>li.open>a>i,
+.member-tabset>.nav-tabs>li:hover>a>i {
+    color: #a6a6a6;
+}
+
+.member-tabset>.nav-tabs>li.open .dropdown-menu,
+.member-tabset>.nav-tabs>li:hover .dropdown-menu {
+    margin-top: 0px;
+}
+
+.member-tabset>.nav-tabs>li.active {
+    border-bottom: 5px solid #db307c;
+    position: relative;
+    background-color: rgb(65 215 167);
+}
+
+.member-tabset>.nav-tabs>li.active>a {
+    border: 0 !important;
+    color: #333333;
+}
+
+.member-tabset>.nav-tabs>li.active>a>i {
+    color: #404040;
+}
+
+.member-tabset>.tab-content {
+    margin-top: -3px;
+    border: 0;
+    padding: 15px 0;
+}
+
+.nav-tabs .nav-item .nav-link.active {
+    background-image: none;
+    background-color: rgb(65 215 167);
+}
+
+/* # Tabset style END */
+
+.ngx-gallery {
+    display: inline-block;
+    margin-bottom: 20px;
+}

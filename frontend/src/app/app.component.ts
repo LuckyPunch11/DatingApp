@@ -15,9 +15,9 @@ export class AppComponent implements OnInit {
   users: any;
 
   ngOnInit(): void {
-    this.http.get("https://localhost:5001/api/users").subscribe({
-      next: response => this.users = response
-    });
+    // this.http.get("https://localhost:5001/api/users").subscribe({
+    //   next: response => this.users = response
+    // });
     this.setCurrentUser();
   }
 
