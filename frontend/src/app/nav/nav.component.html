@@ -14,13 +14,13 @@
         <div class="dropdown" *ngIf="(currentUser$ | async) as user" dropdown>
             <a class="dropdown-toggle text-light text-decoration-none" dropdownToggle>Welcome {{user.email}}</a>
             <div class="dropdown-menu" *dropdownMenu>
-                <a class="dropdown-item">Edit Profile</a>
+                <a class="dropdown-item" routerLink="/member/edit">Edit Profile</a>
                 <div class="divider dropdown-divider"></div>
                 <a class="dropdown-item" (click)="logout()">Logout</a>
             </div>
         </div>
 
-        <form #loginForm="ngForm" (ngSubmit)="login()" *ngIf="!(currentUser$ | async)" class="d-flex" role="search" autocomplete="off"> 
+        <form #loginForm="ngForm" (ngSubmit)="login()" *ngIf="!(currentUser$ | async)" class="d-flex" role="search" autocomplete="on"> 
             <input 
                 name="email"
                 [(ngModel)]="model.email"

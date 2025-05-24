@@ -10,13 +10,9 @@ import { MemberService } from 'src/app/_services/member.service';
 })
 export class MemberListComponent implements OnInit {
   members$: Observable<Member[]>;
-  //members: Member[];
   private memberSrv = inject(MemberService);
   
   ngOnInit(): void {
-    this.members$ = this.memberSrv.members$;
-    // this.memberSrv.getMembers().subscribe({
-    //   next: data => this.members = data
-    // });
+    this.members$ = this.memberSrv.getMembers();
   }
 }

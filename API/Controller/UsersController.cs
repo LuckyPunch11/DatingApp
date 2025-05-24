@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using API.DTOs;
 using API.Entities;
 using API.Interfaces;
@@ -11,9 +12,11 @@ namespace API.Controller
     public class UsersController : BaseApiController
     {
         private readonly IUserRepository _userRepo;
+        private readonly IMapper _mapper;
 
-        public UsersController(IUserRepository userRepo)
+        public UsersController(IUserRepository userRepo, IMapper mapper)
         {
+            _mapper = mapper;
             _userRepo = userRepo;
         }
 
@@ -34,6 +37,22 @@ namespace API.Controller
         public async Task<ActionResult<MemberDto>> GetUserByEmail(string email)
         {
             return await _userRepo.GetMemberByEmailAsync(email);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> UpdateUser(MemberUpdateDto member)
+        {
+            var email = User.FindFirst(ClaimTypes.Email)?.Value;
+            var user = await _userRepo.GetUserByEmailAsync(email);
+
+            _mapper.Map(member, user);
+
+            _userRepo.Update(user);
+
+            if (await _userRepo.SaveAllAsync())
+                return NoContent();
+
+            return BadRequest("Failed to update user");
         }
     }
 }

@@ -44,6 +44,11 @@ namespace API.Data
                 .ToListAsync();
         }
 
+        public async Task<AppUser> GetUserByEmailAsync(string email)
+        {
+            return await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
+        }
+
         public async Task<bool> SaveAllAsync()
         {
             return await _context.SaveChangesAsync() > 0;
