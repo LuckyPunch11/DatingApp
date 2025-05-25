@@ -46,7 +46,8 @@ namespace API.Data
 
         public async Task<AppUser> GetUserByEmailAsync(string email)
         {
-            return await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
+            return await _context.Users.Include(u => u.Photos)
+            .FirstOrDefaultAsync(x => x.Email == email);
         }
 
         public async Task<bool> SaveAllAsync()
