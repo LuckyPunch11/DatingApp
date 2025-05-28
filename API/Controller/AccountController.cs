@@ -8,6 +8,7 @@ using API.Data;
 using API.DTOs;
 using API.Entities;
 using API.Interfaces;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SQLitePCL;
@@ -18,8 +19,10 @@ namespace API.Controller
     {
         private readonly DataContext _context;
         private readonly ITokenService _tokenService;
-        public AccountController(DataContext context, ITokenService tokenService)
+        private readonly IMapper _mapper;
+        public AccountController(DataContext context, ITokenService tokenService, IMapper mapper)
         {
+            _mapper = mapper;
             _tokenService = tokenService;
             _context = context;
         }
@@ -27,17 +30,16 @@ namespace API.Controller
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
-            if(await UserExists(registerDto.Email)) 
+            if (await UserExists(registerDto.Email))
                 return BadRequest("Email is taken");
+
+            var user = _mapper.Map<AppUser>(registerDto);
 
             using var hmac = new HMACSHA512();
 
-            var user = new AppUser
-            {
-                Email = registerDto.Email.ToLower(), 
-                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
-                PasswordSalt = hmac.Key
-            };
+            user.Email = registerDto.Email.ToLower();
+            user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password));
+            user.PasswordSalt = hmac.Key;
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
@@ -56,16 +58,16 @@ namespace API.Controller
             var user = await _context.Users
                 .Include(p => p.Photos)
                 .SingleOrDefaultAsync(u => u.Email == loginDto.Email);
-            
-            if(user == null) 
+
+            if (user == null)
                 return Unauthorized("Invalid Email");
 
             using var hmac = new HMACSHA512(user.PasswordSalt);
             var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
 
-            for(int i = 0; i < computedHash.Length; i++)
+            for (int i = 0; i < computedHash.Length; i++)
             {
-                if(computedHash[i] != user.PasswordHash[i]) 
+                if (computedHash[i] != user.PasswordHash[i])
                     return Unauthorized("Invalid Password");
             }
 
