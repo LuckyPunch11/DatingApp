@@ -46,6 +46,8 @@ export class MemberEditComponent implements OnInit {
       next: () => {
         this.toastr.success('Profile updated successfully');
         this.editForm.resetForm(this.member);
+        this.user.username = this.member.username;
+        this.accountSrv.setCurrentUser(this.user);
       }
     });
   }

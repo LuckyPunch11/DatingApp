@@ -50,4 +50,12 @@ export class MemberService {
   deletePhoto(photoId: number) {
     return this.http.delete(`${this.baseUrl}/users/delete-photo/${photoId}`);
   }
+
+  addLike(email: string) {
+    return this.http.post(`${this.baseUrl}/likes/${email}`, {});
+  }
+
+  getLikes(predicate: string) {
+    return this.http.get<Partial<Member[]>>(`${this.baseUrl}/likes?predicate=${predicate}`, {});
+  }
 }
