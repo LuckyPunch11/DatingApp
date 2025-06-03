@@ -3,4 +3,5 @@ export interface User {
     token: string;
     username: string;
     photoUrl: string;
+    gender: string;
 }

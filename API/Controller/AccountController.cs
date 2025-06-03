@@ -48,7 +48,8 @@ namespace API.Controller
             {
                 Email = user.Email,
                 Token = _tokenService.CreateToken(user),
-                Username = user.UserName
+                Username = user.UserName,
+                Gender = user.Gender
             };
         }
 
@@ -76,7 +77,8 @@ namespace API.Controller
                 Email = user.Email,
                 Token = _tokenService.CreateToken(user),
                 Username = user.UserName,
-                PhotoUrl = user.Photos.FirstOrDefault(x => x.IsMain)?.Url
+                PhotoUrl = user.Photos.FirstOrDefault(x => x.IsMain)?.Url,
+                Gender = user.Gender
             };
         }
 

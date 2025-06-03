@@ -10,7 +10,8 @@
 
     <div class="col-4">
         <div class="card">
-            <img src="{{member.photoUrl || './assets/user.png'}}" alt="{{member.username}}" class="card-img-top img-thumbnail">
+            <img src="{{member.photoUrl || './assets/user.png'}}" alt="{{member.username}}"
+                class="card-img-top img-thumbnail">
             <div class="card-body">
                 <div>
                     <strong>Location:</strong>
@@ -22,15 +23,16 @@
                 </div>
                 <div>
                     <strong>Last Active:</strong>
-                    <p>{{member.lastActive}}</p>
+                    <p>{{member.lastActive | timeago}}</p>
                 </div>
                 <div>
                     <strong>Member Since:</strong>
-                    <p>{{member.created}}</p>
+                    <p>{{member.created | date: 'dd MMM yyyy'}}</p>
                 </div>
             </div>
             <div class="card-footer d-grid gap-2">
-                <button [disabled]="!editForm.dirty" type="submit" form="editForm" class="btn btn-success ">Save Changes <i class="fa fa-download"></i></button>
+                <button [disabled]="!editForm.dirty" type="submit" form="editForm" class="btn btn-success ">Save Changes
+                    <i class="fa fa-download"></i></button>
             </div>
         </div>
     </div>
@@ -45,9 +47,11 @@
                         <input [(ngModel)]="member.username" type="text" name="username" class="form-control mx-2">
                     </div>
                     <h4 class="mt-2">Description</h4>
-                    <textarea class="form-control" [(ngModel)]="member.introduction" name="introduction" rows="3"></textarea>
+                    <textarea class="form-control" [(ngModel)]="member.introduction" name="introduction"
+                        rows="3"></textarea>
                     <h4 class="mt-2">Looking for</h4>
-                    <textarea class="form-control" [(ngModel)]="member.lookingFor" name="lookingFor" rows="3"></textarea>
+                    <textarea class="form-control" [(ngModel)]="member.lookingFor" name="lookingFor"
+                        rows="3"></textarea>
                     <h4 class="mt-2">Interests</h4>
                     <textarea class="form-control" [(ngModel)]="member.interests" name="interests" rows="3"></textarea>
                     <h4 class="mt-2">Location Details:</h4>
