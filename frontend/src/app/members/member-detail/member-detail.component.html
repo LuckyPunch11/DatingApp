@@ -1,7 +1,8 @@
-<div class="row" *ngIf="member">
+<div class="row">
     <div class="col-4">
         <div class="card">
-            <img src="{{member.photoUrl || './assets/user.png'}}" alt="{{member.username}}" class="card-img-top img-thumbnail">
+            <img src="{{member.photoUrl || './assets/user.png'}}" alt="{{member.username}}"
+                class="card-img-top img-thumbnail">
             <div class="card-body">
                 <div>
                     <strong>Location:</strong>
@@ -23,29 +24,42 @@
             <div class="card-footer">
                 <div class="btn-group d-flex">
                     <button class="btn btn-primary">Like <i class="fa fa-heart"></i></button>
-                    <button class="btn btn-success">Message <i class="fa fa-envelope"></i></button>
+                    <button class="btn btn-success" (click)="selectTab(3)">Message <i
+                            class="fa fa-envelope"></i></button>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="col-8">
-        <tabset class="member-tabset">
-            <tab heading="About {{member.username}}">
+        <tabset class="member-tabset" #memberTabs>
+            <tab heading="About {{member.username}}" (selectTab)="onTabActivated($event)">
+                <ng-template tabHeading>
+                    <i class="fa fa-user ms-1"></i> 
+                </ng-template>
                 <h4>Description</h4>
                 <p>{{member.introduction}}</p>
                 <h4>Looking for</h4>
                 <p>{{member.lookingFor}}</p>
             </tab>
-            <tab heading="Interests">
+            <tab heading="Interests" (selectTab)="onTabActivated($event)">
+                <ng-template tabHeading>
+                    <i class="fa fa-info ms-1"></i>
+                </ng-template>
                 <h4>Interests</h4>
                 <p>{{member.interests}}</p>
             </tab>
-            <tab heading="Photos" #photoTab="tab">
+            <tab heading="Photos" #photoTab="tab" (selectTab)="onTabActivated($event)">
+                <ng-template tabHeading>
+                    <i class="fa fa-camera ms-1"></i>
+                </ng-template>f
                 <gallery *ngIf="photoTab.active" [items]="images" class="gallery"></gallery>
             </tab>
-            <tab heading="Messages">
-                <h4>Description</h4>
+            <tab heading="Messages" (selectTab)="onTabActivated($event)">
+                <ng-template tabHeading>
+                    <i class="fa fa-envelope ms-1"></i>
+                </ng-template>
+                <app-member-messages [messages]="messages" [email]="member.email"></app-member-messages>
             </tab>
         </tabset>
     </div>
