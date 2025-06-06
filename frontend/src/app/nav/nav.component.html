@@ -6,9 +6,10 @@
                 <li class="nav-item"> <a class="nav-link " routerLink="/members" routerLinkActive="active">Matches</a> </li>
                 <li class="nav-item"> <a class="nav-link" routerLink="/likes" routerLinkActive="active">Likes</a> </li>
                 <li class="nav-item"> <a class="nav-link " routerLink="/messages" routerLinkActive="active">Messages</a> </li>
+                <li class="nav-item" *appHasRole="['Admin', 'Moderator']"> <a class="nav-link " routerLink="/admin" routerLinkActive="active">Admin</a> </li>
             </ng-container>
                 <li class="nav-item" *ngIf="!(currentUser$ | async)"> <a class="nav-link " (click)="logout()">Logout</a> </li>
-                <li class="nav-item"> <a class="nav-link " routerLink="/errors" routerLinkActive="active">Errors</a> </li>
+                <li class="nav-item" *appHasRole="['Admin', 'Moderator']"> <a class="nav-link " routerLink="/errors" routerLinkActive="active">Errors</a> </li>
         </ul>
 
         <div class="dropdown" *ngIf="(currentUser$ | async) as user" dropdown>

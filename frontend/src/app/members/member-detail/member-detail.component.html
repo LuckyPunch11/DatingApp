@@ -52,7 +52,7 @@
             <tab heading="Photos" #photoTab="tab" (selectTab)="onTabActivated($event)">
                 <ng-template tabHeading>
                     <i class="fa fa-camera ms-1"></i>
-                </ng-template>f
+                </ng-template>
                 <gallery *ngIf="photoTab.active" [items]="images" class="gallery"></gallery>
             </tab>
             <tab heading="Messages" (selectTab)="onTabActivated($event)">
